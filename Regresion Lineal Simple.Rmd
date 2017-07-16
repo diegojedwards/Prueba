@@ -1,0 +1,270 @@
+---
+title: "Regresión Lineal"
+author: "Probabilidad y Estadísitica - UTN"
+output: 
+  beamer_presentation: 
+    fonttheme: professionalfonts
+    theme: Copenhagen
+---
+
+```{r setup, include=FALSE}
+pkg <- c("knitr", "ggplot2")
+sapply(pkg, library, character.only=TRUE, logical.return=TRUE)
+```
+
+
+## Definición
+
+- Se denomina análisis de Regresión Lineal al conjunto de procedimientos estadísticos que se utilizan para analizar y describir la relación entre una variable  **Y** (respuesta o explicada) y una o más variables **X** (regresoras o explicativas).
+
+\setlength{\parskip}{10pt}
+
+- El método también es utilizado para predecir valores de **Y** a partir de la/s **X**. 
+
+##
+
+**Ejemplo**
+
+\begin{equation}
+\label{}
+Variable\hspace{.2cm}Respuesta = \left\{
+  \begin{array}{l}
+  Ganancias\hspace{.2cm}por\hspace{.2cm}ventas
+  \end{array}
+  \right.
+\end{equation}  
+  
+\begin{equation}
+\label{eq:aqui-le-mostramos-como-hacerle-la-llave-grande}
+Variables\hspace{.2cm}Regresoras = \left\{
+  \begin{array}{l}
+  Precio\hspace{.2cm}de\hspace{.2cm}venta\\
+  Calidad\\
+  Precio\hspace{.2cm}del\hspace{.2cm}competidor
+  \end{array}
+  \right.
+\end{equation} 
+
+El término fue introducido por Francis Galton en su libro Natural Inheritance (1889) y fue confirmado por su amigo Karl Pearson. Su trabajo se centró en la descripción de los rasgo físicos de los descendientes (Variable A) a partir de su padre (Variable B). Estudiando la altura se llegó a la conclusión de que padres muy altos tenían una tendencia a tener hijos más bajos.
+
+## Modelo General
+
+\begin{center}\Large\color{red} $Y = f(X_{1}; X_{2};...;X_{n}) + \varepsilon$ \end{center}
+
+\setlength{\parskip}{10pt}
+
+**Dónde:**
+  \setlength{\parskip}{10pt}
+
+Y: Variable explicada.\
+f: modelo de regresión.\
+$X_{1}; X_{2};...;X_{n}$: variables regresoras.\
+$\varepsilon$: perturbación o error residual.
+\setlength{\parskip}{10pt}
+
+**Modelo Lineal General**
+  
+  \begin{center} $Y = \beta_{0} + \beta_{1}X_{1}+ \beta_{2}X_{2} + ... + \beta_{n}X_{n} + \varepsilon$ \end{center}
+
+##Modelo de Regresión Lineal Simple
+
+
+\begin{center} $Y = \beta_{0} + \beta_{1}X+ \varepsilon$ \end{center}
+
+Dónde:
+  
+\begin{center} $\beta_{0}$ y $\beta_{1}$: parámetros del modelo \end{center}
+
+Supuestos:
+
+\begin{enumerate}
+  \item $\varepsilon$ es una variable aleatoria pura, con distribución \textbf{Normal}                               e independiente de la variable regresora X.
+  \item $E(\varepsilon)$ = 0
+  \item $\sigma^2_{\varepsilon}$ es constante 
+  \item Las distintas variables $\varepsilon$ son independientes entre sí.
+\end{enumerate}
+
+##Modelo de Regresión Lineal Simple
+
+\begin{center}
+\includegraphics[width=10cm, height=8cm, keepaspectratio]{Grafico.jpg}
+\end{center}
+
+
+##Recta de Regresión
+
+\begin{center} $E(Y/X) = \beta_{0} + \beta_{1}X$ \end{center}
+
+Se interpreta como la esperanza matemática de la variable **Y** para cada valor de **X** o esperanza de **Y** dado **X**.
+Este modelo supone que la esperanza de **Y** dado **X** es una funcion lineal de la variable **X**.
+
+- La pendiente $\beta_{1}$ es el cambio de la media de la distribución de **Y** producido por un cambio unitario en **X**.
+\setlength{\parskip}{10pt}
+- Para este modelo **X** no se considera variable aleatoria, es un valor constante conocido antes de aplicar el modelo.  
+
+
+## Estimación de los Parámetros $\beta_{0}$ y $\beta_{1}$
+
+Los parámetros son desconocidos y deben ser estimados a partir de los datos obtenidos en la muestra.
+
+\setlength{\parskip}{10pt}
+
+Sea $b_{0}$ esl estimador de $\beta_{0}$ y $b_{1}$ el estimador de $\beta_{1}$
+
+\setlength{\parskip}{10pt}  
+
+Llamamos función predictora a:
+    
+\begin{center} $\widehat{Y} = b_{0} + b_{1} * X$ \end{center}
+  
+  Para estimar $\beta_{0}$ y $\beta_{1}$ aplicamos el métodos de mínimos cuadrados para minimizar la suma de los residuos:
+    
+\begin{center} $\sum\limits_{i=1}^{n}\widehat{\varepsilon} = 0$ \end{center}
+
+
+##Resolución por el método de mínimos cuadrados
+
+$\sum_{i=1}^{n}\widehat{\varepsilon}^2 = Q = \sum\limits_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i})^2$
+
+\setlength{\parskip}{10pt}
+
+Se igualan a 0 las derivadas parciales respecto de $b_{0}$ y $b_{1}$
+
+\setlength{\parskip}{15pt}
+
+$\dfrac{\partial Q}{\partial b_{0}} = -2 \sum\limits_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i}) = 0$
+
+\setlength{\parskip}{10pt}
+
+$\dfrac{\partial Q}{\partial b_{1}} = -2 \sum\limits_{i=1}^{n}x_{i}(y_{i}-b_{0}-b_{1}x_{i}) = 0$
+
+\setlength{\parskip}{15pt}
+
+Simplificando las dos ecuaciones se obtiene:
+
+\setlength{\parskip}{10pt}
+
+$nb_{0} + b_{1} \sum\limits_{i=1}^{n}x_{i} = \sum\limits_{i=1}^{n}y_{i}$      Ec. 1
+
+\setlength{\parskip}{10pt}
+
+$b_{0}\sum\limits_{i=1}^{n}x_{i} + b_{1}\sum\limits_{i=1}^{n}x^2_{i} = \sum\limits_{i=1}^{n}x_{i}y_{i}$     Ec.2
+
+##Resolución por el método de mínimos cuadrados
+
+\setlength{\parskip}{25pt}
+
+Las Ecuaciones 1 y 2 son las llamadas **ecuaciones normales de mínimos cuadrados**, y a partir de ellas se obtienen las siguientes soluciones:
+
+\setlength{\parskip}{10pt}
+
+\begin{center}
+$b_{0} = \overline{y} - b_{1}\overline{x}$
+\end{center}
+
+\setlength{\parskip}{10pt}
+
+\begin{center}
+$b_{1} = \dfrac{\sum\limits_{i=1}^{n}x_{i}y_{i} - n\overline{y} \overline{x}}{\sum\limits_{i=1}^{n}x^2_{i} - n\overline{x}^2}$
+\end{center}
+
+##Validación del modelo - Coeficiente de Determinación
+
+\begin{center}
+\Large\color{red}
+$R^2 = 1 - \dfrac{Q}{T}$
+\end{center}
+
+\setlength{\parskip}{10pt}
+
+\textit{Representa la fracción de la variación total T explicada por el modelo, cuanto más se acerque a 1 mejor será el ajuste del modelo a los datos.}
+
+\setlength{\parskip}{10pt}
+
+Variación total = T = $\sum\limits_{i=1}^{n}(y_{i} - \overline{y}_{i})^2$
+
+\setlength{\parskip}{10pt}
+
+Variación residual = Q = $\sum\limits_{i=1}^{n}(y_{i} - \widehat{y}_{i})^2$
+
+\setlength{\parskip}{10pt}
+
+Variación explicada = $\sum\limits_{i=1}^{n}(\widehat{y}_{i} - \overline{y}_{i})^2$
+
+\setlength{\parskip}{10pt}
+
+
+##Validación del modelo - Coeficiente de Determinación
+
+**Variación total = Variación residual + Variación explicada**
+
+\setlength{\parskip}{10pt}
+
+\begin{center}
+$R^2 = \dfrac{\sum\limits_{i=1}^{n}(\widehat{y_{i}} - \overline{y}_{i})^2}{\sum\limits_{i=1}^{n}(y_{i} - \overline{y}_{i})^2} = 1- \dfrac{\sum\limits_{i=1}^{n}(y_{i} - \widehat{y}_{i})^2}{\sum\limits_{i=1}^{n}(y_{i} - \overline{y}_{i})^2}$
+\end{center}
+
+\setlength{\parskip}{10pt}
+
+\begin{center} 
+$0 \leq R^2 \leq 1$
+\end{center}
+
+
+##Coeficiente de correlación
+
+\begin{center} 
+$R=\sqrt{1 - \dfrac{\sum\limits_{i=1}^{n}(y_{i} - \widehat{y}_{i})^2}{\sum\limits_{i=1}^{n}(y_{i} - \overline{y}_{i})^2}}$
+\end{center}
+
+\begin{center} 
+$R=\dfrac{\sum\limits_{i=1}^{n}x_{i}y_{i} - n\overline{y}\overline{x}}{\sqrt{(\sum\limits_{i=1}^{n}x^2_{i} - n\overline{x}^2)(\sum\limits_{i=1}^{n}y^2_{i} - n\overline{y}^2)}}$
+\end{center}
+
+\setlength{\parskip}{10pt}
+
+Para estimar la varianza $\sigma^2$ se utiliza la varianza residual:
+
+\setlength{\parskip}{10pt}
+
+\begin{center} 
+$S^2 = \dfrac{Q}{n - 2}$
+\end{center}
+
+##Ejemplo
+
+La siguiente tabla contiene información de la altura, edad y nivel de grasa en sangre de un grupo de 25 personas:
+
+\setlength{\parskip}{10pt}
+
+```{r, echo=FALSE}
+grasas <- read.table("http://www.uam.es/joser.berrendero/datos/EdadPesoGrasas.txt", 
+    header = TRUE)
+
+kable(head(grasas, 10), align = "c", digits = 2, caption = "Primero 10 datos")
+```
+
+## 
+
+```{r, fig.width=4, fig.height=3, echo=FALSE, fig.align="center"}
+ggplot(grasas, aes(edad, grasas)) + geom_point(shape = 1, size = .75) + 
+       geom_smooth(method = lm, se = FALSE) 
+```
+
+
+## 
+
+```{r, echo=FALSE}
+regresion <- lm(grasas ~ edad, data = grasas)
+a <- summary(regresion)
+
+kable(a$coefficients, align = "c", digits = 2)
+```
+
+Coeficiente de determinación:
+
+```{r, echo=FALSE}
+a$r.squared
+```
+
+
